@@ -44,29 +44,29 @@
       // Forward Kinematics (FK) の考え方でそれぞれのボーンの先端位置を計算して `position` に格納する
       // note: この関数はCCD法の計算中にも呼び出されることになる
 
-    function update_position_raw()
-    {
-        linkages.forEach(function (linkage, index) 
-        {
-          // note: このプログラムではルートとなるボーン（index = 0）の根本位置は原点とする
-          linkage.position = [0, 0];
-
-          // note: このプログラムでは角度はラジアンではなく度で保持する
-          let angle_sum = 0;
-          for (let j = 0; j <= index; ++j) 
+      function update_position_raw()
+      {
+          linkages.forEach(function (linkage, index) 
           {
-            angle_sum += linkages[j].angle;
-            linkage.position[0] += linkages[j].length * Math.cos((angle_sum * Math.PI) / 180);
-            linkage.position[1] += linkages[j].length * Math.sin((angle_sum * Math.PI) / 180);
-          }
-        });
-    }
+            // note: このプログラムではルートとなるボーン（index = 0）の根本位置は原点とする
+            linkage.position = [0, 0];
+
+            // note: このプログラムでは角度はラジアンではなく度で保持する
+            let angle_sum = 0;
+            for (let j = 0; j <= index; ++j) 
+            {
+              angle_sum += linkages[j].angle;
+              linkage.position[0] += linkages[j].length * Math.cos((angle_sum * Math.PI) / 180);
+              linkage.position[1] += linkages[j].length * Math.sin((angle_sum * Math.PI) / 180);
+            }
+          });
+      }
 
       function update_position() {//IK
         linkages.forEach(function (linkage, index) 
         {
           // only changes the positions of linkages
-          linkage.position = mylinkages[index].position;
+          linkage.position = mylinkages[index].position;  // it conveys a pointer
         });
       }
 
@@ -407,7 +407,9 @@
           linkages[selected].angle = Number(
             document.getElementById("input_angle").value
           );
+
           update_position();
+          
           draw();
         };
 
@@ -464,6 +466,13 @@
                 only)
               </li>
             </ul>
+            <li>Comments: </br>
+            I implement 2 IK algorithms here, DCC and Jacobian. Both are not easy. I even struggled with the variable problems of JavaScript (sometimes the variable works like a pointer). Anyway, I only finish 2D-part in this assignment. The 3D-part includes the sphere coordinates and seems a little bit tough for me now. However, I would finish it oneday.</br>
+            I like Jacobian much more than DCC in this assignment. The code can be simple as long as we have Jacobian matrix. However, at the boundry of the domain, it tends to flicker.. It's not as stable as DCC. Even I add some contraints, the flickering doesn't stop.</br>
+            Maybe I should like it just in the domain.</br>
+            P.S. Only under the IK mode would the Jacobian checkbox work. If not checked, default DCC works.</br>
+            The FK has become unable to work, by the reason I modified update_position() to make IK work.
+            </li>
           </ul>
         </td>
       </tr>
