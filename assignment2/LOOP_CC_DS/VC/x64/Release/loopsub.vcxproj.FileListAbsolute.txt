@@ -1,0 +1,3 @@
+D:\_MASTER of UT\courses\Jouhou Soshikiron -Kanai\assignment1\loopsub\VC\x64\Release\loopsub.exe
+D:\_MASTER of UT\courses\Jouhou Soshikiron -Kanai\assignment1\loopsub_CC\VC\x64\Release\loopsub.exe
+D:\_MASTER of UT\courses\Computer Graphics Theory -Igarashi\iscg2023Spring\assignment2\LOOP_CC_DS\VC\x64\Release\loopsub.exe
